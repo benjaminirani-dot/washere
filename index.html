@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Video Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #video-container {
+            margin-top: 20px;
+        }
+        #generateBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #generateBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Simple Video Generator</h1>
+<p>Click the button to generate a video from a sequence of images.</p>
+
+<div id="video-container">
+    <!-- Video will be inserted here -->
+</div>
+
+<button id="generateBtn">Generate Video</button>
+
+<script>
+    const images = ["image1.jpg", "image2.jpg", "image3.jpg"]; // Replace with your image URLs
+    const videoContainer = document.getElementById('video-container');
+    const generateBtn = document.getElementById('generateBtn');
+
+    generateBtn.addEventListener('click', function() {
+        const video = document.createElement('video');
+        video.width = 640;  // Set your desired video width
+        video.height = 360; // Set your desired video height
+        video.controls = true; // Add video controls (play, pause, etc.)
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        let frame = 0;
+        const fps = 10; // Frames per second
+
+        canvas.width = 640;
+        canvas.height = 360;
+
+        const videoChunks = [];
+
+        function drawFrame() {
+            if (frame < images.length) {
+                const img = new Image();
+                img.src = images[frame];
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.w
